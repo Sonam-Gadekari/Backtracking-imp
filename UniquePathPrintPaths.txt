@@ -1,0 +1,39 @@
+//O(m*n): We are iterating though all the cells to figure out the path.
+//O(1): Constant space 
+//Approach: Important concept here is bracking. when we reach final cell from starting cell, we found one unique path. 
+When one unique path  is obtained it is important to take of the end cell from result , because it might be carry forwarded in recusion.
+Similarly when one successfull recursive iteration completes then take off the end value from it. 
+This is to avoid carry forwarding the same values in the local path variable.
+package com.example.demo;
+import java.util.*;
+
+public class UniquePaths {
+
+	static List<String> allPaths= new ArrayList<String>();
+	public static void main(String[] args) {		
+		calculatePaths(0, 0, 3, 3, "");
+		for(int i=0;i<allPaths.size();i++) {
+			System.out.println(allPaths.get(i)+" ");
+		}
+	}
+	
+	public static void calculatePaths(int i, int j, int m , int n, String path) {
+		if(i==m-1 && j==n-1) {
+			allPaths.add(path); 
+			path=path.substring(0, path.length()-1);
+			return ;
+		}
+		
+		if(i>=m && j>=n) {
+			return;
+		}
+		if(j<n) 
+		calculatePaths(i, j+1, m, n, path+"R");
+		
+		if(i<m)
+		calculatePaths(i+1, j, m, n, path+"D");
+		
+		if(path!="")
+		path=path.substring(0, path.length()-1);		
+	}
+}
